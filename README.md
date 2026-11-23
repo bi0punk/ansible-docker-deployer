@@ -62,6 +62,7 @@ ansible-docker-deployer/
 ├── playbooks/
 │   ├── deploy.yml                # Principal (selección interactiva)
 │   ├── status.yml                # Estado de todos los proyectos
+│   ├── _status_single.yml        # Tarea auxiliar de status (include_tasks)
 │   ├── stop.yml                  # Detener un proyecto
 │   ├── cleanup.yml               # Limpiar recursos Docker
 │   └── install_docker.yml        # Instalar Docker en los servidores
@@ -69,8 +70,7 @@ ansible-docker-deployer/
     └── docker_deploy/            # Rol principal de despliegue
         ├── tasks/
         ├── defaults/
-        ├── handlers/
-        └── templates/
+        └── handlers/
 ```
 
 ## Instalación
@@ -114,7 +114,7 @@ make list-projects    # listar proyectos disponibles en ./composes
 make lint             # validar sintaxis de los playbooks
 ```
 
-Para fijar el inventario por defecto usar `INVENTORY=inventario/custom.ini` en el comando.
+Para fijar el inventario por defecto usar `INVENTORY=inventory/custom.ini` en el comando.
 
 ## Configuración
 
@@ -127,7 +127,7 @@ Variables en `group_vars/all.yml`:
 | `docker_pull_always` | `true` | Pull antes de levantar |
 | `docker_force_recreate` | `false` | Recrear contenedores aunque no cambien |
 | `docker_remove_orphans` | `true` | Eliminar contenedores huérfanos |
-| `backup_before_deploy` | `false` | Backup de volúmenes antes de desplegar |
+| `backup_before_deploy` | `false` | Crear un tar.gz del directorio del proyecto antes de desplegar |
 | `deploy_health_check_delay` | `10` | Segundos antes de verificar salud |
 | `docker_compose_bin` | `docker compose` | Comando de Docker Compose |
 | `deploy_env` | `production` | Entorno de despliegue |
